@@ -1,0 +1,2228 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "4eat API",
+        "version": "1.0",
+        "description": "\n---\n\n### **Introduction**\n4eat API provides you with an easy and advanced digital nutritionist that you can integrate into your service. We aim to add value to verticals related to nutrition services, so we can improve people's life through better health, which starts with better nutrition.\n\nWe allow you to integrate your offer, if any, and use your user´s data to develop an additional digital service that makes it possible to deliver highly dynamic nutrition plans. Over this documentation, we show you how to integrate and develop 4eat´s functionalities, and how you can get the most of your offer if available with our tools.\n\nWe define ourselves as a white label suite of algorithms based on professional nutritionists, so you can add these services to your users as this research and optimisation process it's yours. To do so, **we are part of Nubentos APIs**, so you will need to go through their platform, that will also simplify your work to integrate our tool.\n\n---\n\n### **Use cases**\n4eat API is developed based on our vision of the future, as a suite of tools that enables vertical developments around food and health. Food Delivery, Meal Kits, Hospitals, Fitness and Nutrition Platforms, etc., are part of people's lives. People do not always eat at home, neither do they cook their own food. They have different life patterns, and depending on the day they do exercise or not. They also have different health conditions that evolve over their lives.\n\n4eat approach is to allow you to use all the data available in your platform to create an extra service that can make a healthy use of your products, add an extra value and expand your margins. \nAround the different functionalities that 4eat presents to you, we will show you different use cases around what we call internally recipes. Recipes are a group of ingredients, and depending on the use case could be provided by us, defined by yourself, or even for your user. They can also have fixed quantities, or they are optimized by our algorithms.\n\nWe are going to explain in detail in this documentation how you can use the different functionalities depending on what application you decide to perform, and how you can deliver the dynamic nutritional plan to your users.\n\nWe also share with you these detailed use cases for several services:\n- Food Delivery\n- Meal Kits\n- Fitness Plaftorms\n\n---\n\n### **Obtaining API Keys & Authenticating**\nThe setting up process is done through the Nubentos platform, so in order to get your API Keys you will need to register and connect yourself through them. Then, once you have the API Key available, you will be able to start using our endpoints and building your environment.\n\n---\n\n### **Endpoint**\n```https://4eat.io/api/v1/```\n\n---\n\n### **Changelog**\n- 13/04/2022:\n    - Initial release",
+        "contact": {
+            "name": "MASHealth Software SL",
+            "email": "developer@4eatapp.com"
+        }
+    },
+    "servers": [{
+        "url": "https://4eat.io/api/v1"
+    }],
+    "tags": [{
+            "name": "Customer Setup",
+            "description": "This section of our API is related to the initial setup of yourself, as a customer. Once you generate your API key through Nubentos platform, you can start setting up your own offer and Nutritional Plan environment.\n\nHere, we will explain the different customer setup methods available in 4eat, that will allow you to get the most important data from our system, add your recipes if you have them, and set up a few conditions. These methods are related to yourself as a customer, so no user id is related to them. We group here general functions that your development team will find useful to setup yourself as a customer."
+        },
+        {
+            "name": "User Setup",
+            "description": "This section covers everything related to your users profile, as creating new users or modifying them. The most data we have about a user, the more accurate the plan will be."
+        },
+        {
+            "name": "User Diet Management",
+            "description": "Every aspect related to the user's diet can be configured from here. Users can create their own weekly plans, modify them, select new recipes, check every recipe and its quantities, or checking the shopping list."
+        },
+        {
+            "name": "User Own Recipes",
+            "description": "Here we have a set of endpoints that will allow your users to create their own recipes. Consider that, as your users define their recipes for a specific meal, you need to understand the constraints for those meals. Here we define the methods related with creating your own recipe, as a user."
+        }
+    ],
+    "paths": {
+        "/setupData": {
+            "parameters": [],
+            "get": {
+                "summary": "Get customer setup data",
+                "operationId": "post-getCustomerSetup",
+                "responses": {
+                    "200": {
+                        "description": "Returns all the data required for setting up the customer environment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "countries": {
+                                            "type": "array",
+                                            "description": "Defines the list of available countries",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "countryID": {
+                                                        "type": "integer",
+                                                        "example": 209
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Spain"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "langs": {
+                                            "type": "array",
+                                            "description": "Defines the list of available languages",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "langID": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "English"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "ingredients": {
+                                            "type": "array",
+                                            "description": "Defines the list of available ingredients",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "ingrediendID": {
+                                                        "type": "integer",
+                                                        "example": 8
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Tomato"
+                                                    },
+                                                    "groupID": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "mainNutrientID": {
+                                                        "type": "integer",
+                                                        "example": 7
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "subcategories": {
+                                            "type": "array",
+                                            "description": "Defines the list of available recipe subcategories",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "subcategoryID": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Sandwiches"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "ingredientsGroups": {
+                                            "type": "array",
+                                            "description": "Defines the list of available ingredient groups",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "groupID": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "White meat"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "allergies": {
+                                            "type": "array",
+                                            "description": "Defines the list of available allergies",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "allergyID": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Gluten"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "nutrients": {
+                                            "type": "array",
+                                            "description": "Defines the list of available nutrients",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "nutrientID": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Carbohydrates"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "meals": {
+                                            "type": "object",
+                                            "properties": {
+                                                "mealTypes": {
+                                                    "type": "array",
+                                                    "description": "Defines the list of available meal types. Each meal of the week will have a mealType associated to it",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "mealType": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Breakfast"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "mealDistributions": {
+                                                    "type": "array",
+                                                    "description": "Defines the list of available meals distributions",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "mealsNumber": {
+                                                                "type": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "mealsDistribution": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "meals": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "mealID": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        },
+                                                                        "mealType": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {}
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "description": "This endpoint is a generic function that provides all the relevant information for you as a customer to setup your environment. As a response, we provide the list of countries, languages, subcategories of ingredients, ingredients, subcategories of recipes, allergies, etc.\n\nThis is a critical endpoint that you will need to define several properties and to get some important data as ingredients, in order to define your own recipes.",
+                "tags": [
+                    "Customer Setup"
+                ]
+            }
+        },
+        "/enable4eatRecipes": {
+            "put": {
+                "summary": "Enable 4eat recipes",
+                "operationId": "post-setShow4eatRecipes",
+                "responses": {
+                    "200": {
+                        "description": "4eat recipes enabled successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "description": "This endpoint updates the state of 4eat recipes. We have several recipes optimized by countries that can be shown as alternatives to your users in their meals if you want to. These recipes are defined by ingredients, so we optimize the ingredient quantities for each meal.\n\nThis should be a one-time request, so you just execute this endpoint if you want to allow your users to see our meals. \n\nYou can check at anytime the list of available recipes on ```GET /recipes``` to see which recipes are going to appear on your user's plans",
+                "tags": [
+                    "Customer Setup"
+                ]
+            },
+            "parameters": []
+        },
+        "/disable4eatRecipes": {
+            "put": {
+                "summary": "Disable 4eat recipes",
+                "operationId": "post-setHide4eatRecipes",
+                "responses": {
+                    "200": {
+                        "description": "4eat recipes disabled successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "description": "This endpoint updates the state of 4eat recipes, in the opposite direction than ```PUT /enable4eatRecipes```. With this endpoint you will hide our recipes so we do not show them as alternatives to your users in their meals. This should be a one-time endpoint, so you just execute this endpoint if you want to disallow your users to see our meals.\n\nConsider that if any user already had one of our recipes selected in his plans, those will remain selected. This will only affect future requests.\n\nYou can check at anytime the list of available recipes on ```GET /recipes``` to see which recipes are going to appear on your user's plans",
+                "tags": [
+                    "Customer Setup"
+                ]
+            },
+            "parameters": []
+        },
+        "/recipes": {
+            "get": {
+                "summary": "Get all available recipes",
+                "operationId": "post-getRecipes",
+                "responses": {
+                    "200": {
+                        "description": "Returns the list of all recipes currently available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "recipes": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "recipeID": {
+                                                        "$ref": "#/components/schemas/recipeID"
+                                                    },
+                                                    "ownRecipe": {
+                                                        "type": "boolean",
+                                                        "description": "Defines if the recipe has been created by you"
+                                                    },
+                                                    "name": {
+                                                        "$ref": "#/components/schemas/recipeName"
+                                                    },
+                                                    "subcategoryName": {
+                                                        "$ref": "#/components/schemas/subcategoryName"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "description": "This endpoint will provide you a list with all the recipes that you have available as a customer. This includes our recipes, if enabled, and the recipes that you can create. Consider that this method should not be used for user diet selections, as we have a specific endpoint for those cases, where we optimize which recipes can be selected in a meal.\n\nThis is a list that you can use to review and check your recipes and analyze the available recipes, but not as a meal selection tool.",
+                "tags": [
+                    "Customer Setup"
+                ]
+            },
+            "parameters": []
+        },
+        "/recipe": {
+            "post": {
+                "summary": "Add customer's recipe",
+                "operationId": "post-addRecipe",
+                "responses": {
+                    "200": {
+                        "description": "Recipe created successfully  \nReturns the recipe ID associated to the new recipe",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "recipeID": {
+                                            "type": "integer",
+                                            "description": "Defines the recipe ID for the created recipe"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "names": {
+                                        "type": "array",
+                                        "description": "Defines the list of names for every language for this recipe. In case the recipe has not a name for a requested language, english will be shown by default. In case english name has not been provided for this recipe, the first available language will be shown",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "langID": {
+                                                    "$ref": "#/components/schemas/langID"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "langID",
+                                                "name"
+                                            ]
+                                        }
+                                    },
+                                    "level": {
+                                        "$ref": "#/components/schemas/recipeLevel"
+                                    },
+                                    "time": {
+                                        "$ref": "#/components/schemas/recipeTime"
+                                    },
+                                    "subcategoryID": {
+                                        "type": "integer",
+                                        "description": "Defines the recipe subcategory ID. See the list of every available subcategory with ```GET /setupData``` method"
+                                    },
+                                    "allergies": {
+                                        "type": "array",
+                                        "description": "Defines the list of standard allergies for this recipe (constraints with type = 1). Only allergy IDs should be provided",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "ingredients": {
+                                        "type": "array",
+                                        "description": "Defines the list of ingredients for this recipe. In case you don't want to define a fixed quantity for any ingredient, none of them should have a fixed quantity. In case you want, you should provide a fixed quantity for all of them",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "ingredientID": {
+                                                    "$ref": "#/components/schemas/ingredientID"
+                                                },
+                                                "fixedQuantity": {
+                                                    "type": "integer",
+                                                    "description": "Defines the quantity for this ingredient, in grams. In case you don't define a quantity, we will optimice the quantities for the user",
+                                                    "example": 80
+                                                }
+                                            },
+                                            "required": [
+                                                "ingredientID"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "names",
+                                    "subcategoryID",
+                                    "ingredients"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "description": "This endpoint allows you to create your own recipes catalog. This is a very important feature so whether you have a food delivery service where the restaurants give you their menus, a meal kit company that has their own products, or you have a recipe book that you would like to include, this endpoint will bring you the possibility to add those recipes. \n\n4eat is a suite of algorithms, so although we have recipes optimized per country, it is only on you to show and use them to your service. We allow you to create in different ways recipes that then we will analyze automatically to decide if they suit your user in a specific meal in a specific day, or not. This is a critical function, as it will allow you to add your service offer that will be fully private for yourself, and that you will be able to control all time. \nThis functionality allows you, as a customer, to define in different ways “recipes”, that are “meals” in several ways. This concept is important so you need to pay attention in order to define it properly and understand the implications of the definition. We control recipes with ingredients, subcategories and quantities. We give you alternatives in how to define your recipes, as different use cases have different requirements. This is critical, so we will explain here the different definition cases that we have:\n\n**1. Recipe with ingredients and fixed quantities**. You can define a recipe including its ingredients and the quantity of each of them. Then, as we define internally each of those ingredients, we are able to identify even in more detail than we were with the first case if a recipe suits a specific meal or not. This case is better in terms of optimisation than the first one, and can be used if you know how much of each ingredient is included in the recipe.\n\n**2. Recipe with ingredients without quantities**. You can also define a recipe including only its ingredients, without specific quantities. In this case, we use our optimizer in each meal to calculate how much of each ingredient would require a user in that meal. This option is the best one in terms of diet optimization, but it only works if the user is the one that cooks their own meal, or if the restaurant/dark kitchen adjusts the quantities of the meal to that specific case.\n\nYou can see every available ingredient with ```GET /setupData``` method, and you must use our ingredients to define your meals as we carefully consider them in the selection and optimisation process. Consider that we only add generic and what we consider healthy ingredients, but if you miss an ingredient we encourage you to contact us so we can add it in our service.\n\nPlease, consider also the following statements:\n\n- Ingredients are important in order to identify if a meal is not selectionable for a user regarding their allergies. As part of the platform development, we recommend you to ask your users for their allergies, by using ```PUT /user``` method, that will allow your user to select specific ingredients and also general allergies such as gluten. When a user selects their allergies in their profile, we are able to better select if a recipe is suitable to your user, so please, define the ingredients properly and ask your users to fill up their allergies and the ingredients they don't like.\n- Ingredients quantities and macronutrients are key for a user's diet. We analyze which meals are suitable around the available for an specific meal, in terms of diet requirements and diet balance (this is considering the rest of your meals, physical activity, balance in terms of group of ingredients, etc).\n- You need to add a name for the meal that you are defining. Add as many languages as you will use in your service. English language will always be the default one when no other language is available. Contact us if you are missing one of them.\n- As part of our balance focus, we use recipes subcategories as a tool to improve your users diet. You should select the recipe subcategory that better suits your meal.\n",
+                "tags": [
+                    "Customer Setup"
+                ]
+            },
+            "parameters": []
+        },
+        "/recipe/{recipeID}": {
+            "parameters": [{
+                "schema": {
+                    "type": "integer"
+                },
+                "name": "recipeID",
+                "in": "path",
+                "required": true,
+                "description": "Defines the recipe ID you want to remove"
+            }],
+            "delete": {
+                "summary": "Remove customer's recipe",
+                "tags": [
+                    "Customer Setup"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recipe removed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "operationId": "get-recipe-recipeID",
+                "description": "This endpoint will allow you to remove a recipe that you previously defined. This is useful if you want to remove a recipe from your offer or you no longer have it available. If you remove a recipe, it will be removed from where it was selected in other meals. You will no longer have access to it, so consider it before any actions.\n\nAs recipes are a key element of our API, and we optimize them at each meal considering the specifics of each user at that time and the conditions of your recipe, editing a recipe is not allowed. That's why if you want to edit a recipe because it changed, you made a mistake defining it or is no longer in your offer, you should remove it and define it again.",
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }]
+            }
+        },
+        "/recipeImage/{recipeID}/{thumb}": {
+            "get": {
+                "summary": "Get image for recipe",
+                "operationId": "post-getRecipeImage",
+                "responses": {
+                    "200": {
+                        "description": "Returns the image associated to the specified recipe"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "description": "This endpoint provides you the image associated to the requested recipe from 4eat. As your recipes are defined by yourself, and only you have access to them, you will be in charge of the images for your own recipes. If you decide to use our recipes, this endpoint gives you those images.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            },
+            "parameters": [{
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "name": "recipeID",
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "schema": {
+                        "type": "string",
+                        "example": "thumb"
+                    },
+                    "name": "thumb",
+                    "in": "path",
+                    "description": "Add ```/thumb``` to endpoint to get recipe thumbnail image"
+                }
+            ]
+        },
+        "/user": {
+            "post": {
+                "summary": "Signup new user",
+                "operationId": "post-signupUser",
+                "responses": {
+                    "200": {
+                        "description": "User created successfully  \nReturns the user token associated to the new user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "userToken": {
+                                            "type": "string",
+                                            "description": "Defines the token for the created user. This token should be used for every request regarding this user",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.dyt0CoTl4WoVjAHI9Q_CwSKhl6d_9rhM3NrXuJttkao"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                    "$ref": "#/components/parameters/APIKey"
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "planType": {
+                                        "$ref": "#/components/schemas/planType"
+                                    },
+                                    "weight": {
+                                        "$ref": "#/components/schemas/weight"
+                                    },
+                                    "height": {
+                                        "$ref": "#/components/schemas/height"
+                                    },
+                                    "age": {
+                                        "$ref": "#/components/schemas/age"
+                                    },
+                                    "gender": {
+                                        "$ref": "#/components/schemas/gender"
+                                    },
+                                    "dietID": {
+                                        "$ref": "#/components/schemas/dietID"
+                                    },
+                                    "modeID": {
+                                        "$ref": "#/components/schemas/modeID"
+                                    },
+                                    "mealsNumber": {
+                                        "$ref": "#/components/schemas/mealsNumber"
+                                    },
+                                    "mealsDistribution": {
+                                        "$ref": "#/components/schemas/mealsDistribution"
+                                    },
+                                    "langID": {
+                                        "$ref": "#/components/schemas/langID"
+                                    },
+                                    "countryID": {
+                                        "$ref": "#/components/schemas/countryID"
+                                    },
+                                    "constraints": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/constraintObjectWithoutName"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "planType",
+                                    "weight",
+                                    "height",
+                                    "age",
+                                    "gender",
+                                    "dietID",
+                                    "modeID",
+                                    "mealsNumber",
+                                    "mealsDistribution"
+                                ]
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "description": "This endpoint will allow you to create a new user. You will need to define all the information to register them. This function is critical as it is needed to add a user that is always related to you, as a customer.\n\nYou will need to define several mandatory and optional information in this endpoint, which typically results in a registration process. To us, this information will be critical to create the basis of your users requirements, and better understand their needs. Along all the information that we will specify in details in the parameters section, you will need to define the user itself, meaning its age, gender, height, weight, etc. As well as their nutritional profile, such as diet type, goal, meals per day, allergies, etc.\n\nIf you don't know how to deal in terms of UX/UI with this process, we have our demo use case, [4eat app](https://apps.apple.com/es/app/4eat-dieta-comiendo-saludable/id1532396937), where you can see how we ask in this use case those properties and perform the registration process",
+                "tags": [
+                    "User Setup"
+                ]
+            },
+            "parameters": [],
+            "get": {
+                "summary": "Get user details",
+                "operationId": "get-user",
+                "responses": {
+                    "200": {
+                        "description": "Returns the details for the specified user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "planType": {
+                                                    "$ref": "#/components/schemas/planType"
+                                                },
+                                                "weight": {
+                                                    "$ref": "#/components/schemas/weight"
+                                                },
+                                                "height": {
+                                                    "$ref": "#/components/schemas/height"
+                                                },
+                                                "age": {
+                                                    "$ref": "#/components/schemas/age"
+                                                },
+                                                "gender": {
+                                                    "$ref": "#/components/schemas/gender"
+                                                },
+                                                "dietID": {
+                                                    "$ref": "#/components/schemas/dietID"
+                                                },
+                                                "modeID": {
+                                                    "$ref": "#/components/schemas/modeID"
+                                                },
+                                                "langID": {
+                                                    "$ref": "#/components/schemas/langID"
+                                                },
+                                                "countryID": {
+                                                    "$ref": "#/components/schemas/countryID"
+                                                },
+                                                "signupDate": {
+                                                    "type": "integer",
+                                                    "description": "Defines the date when the user was signed up in seconds since 1970 (epoch)",
+                                                    "example": 1648059517
+                                                },
+                                                "mealsDistributions": {
+                                                    "$ref": "#/components/schemas/mealsDistributionsArray"
+                                                },
+                                                "constraints": {
+                                                    "type": "array",
+                                                    "description": "Defines the list of the existing constraints for the user",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/constraintObjectWithName"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "description": "This endpoint provides you all the information of a specific user. This will be useful to present to the user specific information. To update any of those values, you need to use ```PUT /user```",
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "tags": [
+                    "User Setup"
+                ]
+            },
+            "put": {
+                "summary": "Edit user",
+                "operationId": "put-user",
+                "responses": {
+                    "200": {
+                        "description": "User modified successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "countryID": {
+                                        "$ref": "#/components/schemas/countryID"
+                                    },
+                                    "langID": {
+                                        "$ref": "#/components/schemas/langID"
+                                    },
+                                    "weight": {
+                                        "$ref": "#/components/schemas/weight"
+                                    },
+                                    "height": {
+                                        "$ref": "#/components/schemas/height"
+                                    },
+                                    "age": {
+                                        "$ref": "#/components/schemas/age"
+                                    },
+                                    "gender": {
+                                        "$ref": "#/components/schemas/gender"
+                                    },
+                                    "planType": {
+                                        "$ref": "#/components/schemas/planType"
+                                    },
+                                    "modeID": {
+                                        "$ref": "#/components/schemas/modeID"
+                                    },
+                                    "dietID": {
+                                        "$ref": "#/components/schemas/dietID"
+                                    },
+                                    "mealsDistributions": {
+                                        "$ref": "#/components/schemas/mealsDistributionsArray"
+                                    },
+                                    "constraints": {
+                                        "type": "array",
+                                        "description": "Defines the list of constraints for the user. This list will overwrite the existing constraints for the user",
+                                        "items": {
+                                            "$ref": "#/components/schemas/constraintObjectWithoutName"
+                                        }
+                                    }
+                                }
+                            },
+                            "examples": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "User Setup"
+                ],
+                "description": "This endpoint allows you to edit any parameter for an user.\n\nAny change will be applied since then, so every meal selected from now on, or every week generated since then, will have applied the new settings for the user."
+            }
+        },
+        "/week": {
+            "post": {
+                "summary": "Generate new week for the user",
+                "operationId": "post-newWeek",
+                "responses": {
+                    "200": {
+                        "description": "Week created successfully  \nReturns all the meals associated to the new week ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "week": {
+                                            "$ref": "#/components/schemas/weekObject"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "description": "This method generates a week for a user, a nutritional plan. This allows the user to generate a nutritional plan, empty for the manual case or filled for the automatic case, considering the user's plan type defined on the signup.\n\nConsider that, in the automatic case, our algorithm analyses the available recipes, and tries to complete the plan for that user. If there are not enough recipes available, or if the user has added too many constraints (allergies or ingredients he doesn't like), that plan cannot be generated, so you will receive an error indicating that more recipes are needed, or you need to remove some constraints. In general, we recommend that you select the manual plan, where the basis of your user's diet is generated, but they are in charge of selecting from the available options for each meal. Decide what type of application you want to implement and this will give you the answer as to which method you should employ.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            },
+            "parameters": []
+        },
+        "/week/{weekID}": {
+            "get": {
+                "summary": "Get an existing week for the user",
+                "operationId": "post-getWeek",
+                "responses": {
+                    "200": {
+                        "description": "Returns all the meals associated to the specified week",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "week": {
+                                            "$ref": "#/components/schemas/weekObject"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "description": "This method returns a previously generated week for a user.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            },
+            "parameters": [{
+                "schema": {
+                    "type": "integer"
+                },
+                "name": "weekID",
+                "in": "path",
+                "required": true
+            }]
+        },
+        "/recipeForMeal": {
+            "put": {
+                "summary": "Set recipe to select or replace a meal",
+                "operationId": "post-setRecipeForMeal",
+                "responses": {
+                    "200": {
+                        "description": "Meal selected successfully  \nReturns the specified meal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "meal": {
+                                            "$ref": "#/components/schemas/mealObject"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    },
+                                    "recipeID": {
+                                        "$ref": "#/components/schemas/recipeID"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID",
+                                    "recipeID"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "description": "This endpoint allows you to select a recipe for a specific meal. Consider that you will be able to select only the meals that you have available for the meal requested, that are provided through ```GET /recipeForMeal``` method.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            },
+            "parameters": [],
+            "get": {
+                "summary": "Get alternative recipes for select or replace a meal",
+                "operationId": "get-recipeForMeal",
+                "responses": {
+                    "200": {
+                        "description": "Returns the list of recipes available for the specified meal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "recipes": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "recipeID": {
+                                                        "$ref": "#/components/schemas/recipeID"
+                                                    },
+                                                    "name": {
+                                                        "$ref": "#/components/schemas/recipeName"
+                                                    },
+                                                    "subcategoryName": {
+                                                        "$ref": "#/components/schemas/subcategoryName"
+                                                    },
+                                                    "time": {
+                                                        "$ref": "#/components/schemas/recipeTime"
+                                                    },
+                                                    "level": {
+                                                        "type": "integer"
+                                                    },
+                                                    "custom": {
+                                                        "$ref": "#/components/schemas/customRecipe"
+                                                    },
+                                                    "ingredients": {
+                                                        "type": "array",
+                                                        "description": "Defines the list of ingredients on this recipe",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "ingredientID": {
+                                                                    "$ref": "#/components/schemas/ingredientID"
+                                                                },
+                                                                "name": {
+                                                                    "$ref": "#/components/schemas/ingredientName"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "description": "This method provides your users the list of available recipes for a meal.\n\nAvailable means that they meet the nutritional requirements for the user in that specific moment, considering the rest of the meals already selected. Our algorithms ensure that the alternatives that your users can select at each meal are fitted to their requirements in terms of amounts, allergies, likes and dislikes, macronutrients and ingredients balance.\n\nThis can be used to select a blank meal or to replace an existing recipe on that meal.",
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User Diet Management"
+                ]
+            }
+        },
+        "/skipMeal": {
+            "put": {
+                "summary": "Skip meal",
+                "operationId": "post-skipMeal",
+                "responses": {
+                    "200": {
+                        "description": "Meal skipped successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID"
+                                ]
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "description": "This method allow your users to keep blank a meal. This is relevant when you want to deselect a meal without changing the selection to other alternative. This will leave the meal blank, without selections.\n\nWe encourage your users to use this function when you don't have a clear idea of what you want to eat in a meal, instead of selecting other options. This is because we consider your selection in the rest of your meals, and to your future selections. Being as specific as possible will improve your user's diet.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            }
+        },
+        "/toggleMealDone": {
+            "put": {
+                "summary": "Set meal as done or undone",
+                "operationId": "post-toggleMealDone",
+                "responses": {
+                    "200": {
+                        "description": "Meal set as done successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    },
+                                    "done": {
+                                        "$ref": "#/components/schemas/mealDone"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID",
+                                    "done"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User Diet Management"
+                ],
+                "description": "This endpoint allows the user to indicate if he has done this meal. By marking this, we will be able to better optimize its diet and ingredient quantities for the rest of the meals."
+            },
+            "parameters": []
+        },
+        "/mealsDistribution": {
+            "put": {
+                "summary": "Update meals distribution for an existing day",
+                "operationId": "post-changeMealsDistribution",
+                "responses": {
+                    "200": {
+                        "description": "Meal distribution changed successfully  \nReturns the meals associated to the specified day",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "day": {
+                                            "$ref": "#/components/schemas/dayObject"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealsNumber": {
+                                        "$ref": "#/components/schemas/mealsNumber"
+                                    },
+                                    "mealsDistribution": {
+                                        "$ref": "#/components/schemas/mealsDistribution"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealsNumber",
+                                    "mealsDistribution"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "description": "This method allows you to create the feature to update the meal distribution on a specific day of a selected week. This feature will only change the day selected, keeping the rest of your user's days as defined in his configuration.\n\nThis is helpful so your users can adapt daily their plan in an independent way of their general configuration.",
+                "tags": [
+                    "User Diet Management"
+                ]
+            },
+            "parameters": []
+        },
+        "/shoppingList": {
+            "get": {
+                "summary": "Get shopping list for user",
+                "operationId": "post-getShoppingList",
+                "responses": {
+                    "200": {
+                        "description": "Returns the ingredients quantities associated to the specified ranges",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "ingredients": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ingredientShoppingListObject"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "ranges": {
+                                        "$ref": "#/components/schemas/shoppingListRangeArray"
+                                    }
+                                }
+                            },
+                            "examples": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "User Diet Management"
+                ],
+                "description": "This endpoint returns the list of ingredients and their quantities for a range of weeks, days or meals. You can select as many ranges as you need, to get the specific list of ingredients that you need.\n\nFor every range, you can define:\n- Week\n- Week and day\n- Week, day and meal\n\nWe also convert the quantities to a measurement that makes sense depending on the ingredient (grams, units, slices, etc)"
+            },
+            "parameters": []
+        },
+        "/userRecipe": {
+            "get": {
+                "summary": "Get constraints for creating an user-specific recipe for a meal",
+                "operationId": "post-getCreateRecipeConstraints",
+                "responses": {
+                    "200": {
+                        "description": "Returns the constraints and ingredients for each nutrient for creating a recipe on the specified meal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "nutrients": {
+                                            "type": "array",
+                                            "description": "Defines the list of nutrients available for this meal",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "nutrientID": {
+                                                        "type": "integer",
+                                                        "description": "Defines the nutrient ID. See every available nutrient with ```GET /setupData``` method"
+                                                    },
+                                                    "min": {
+                                                        "type": "integer",
+                                                        "description": "Defines the maximum number of ingredients of this nutrient needed for this meal. If ```null```, then you can create the recipe without any ingredient of this kind",
+                                                        "example": 1
+                                                    },
+                                                    "max": {
+                                                        "type": "integer",
+                                                        "description": "Defines the maximum number of ingredients of this nutrient needed for this meal. If ```null```, then there's no maximum number",
+                                                        "example": 3
+                                                    },
+                                                    "ingredients": {
+                                                        "type": "array",
+                                                        "description": "Defines the list of ingredients for this nutrient",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "ingredientID": {
+                                                                    "$ref": "#/components/schemas/ingredientID"
+                                                                },
+                                                                "name": {
+                                                                    "$ref": "#/components/schemas/ingredientName"
+                                                                },
+                                                                "groupName": {
+                                                                    "$ref": "#/components/schemas/ingredientGroupName"
+                                                                },
+                                                                "available": {
+                                                                    "type": "integer",
+                                                                    "enum": [
+                                                                        1,
+                                                                        2,
+                                                                        3
+                                                                    ],
+                                                                    "description": "Defines if the ingredient is available for this meal\n\n- **1** = available\n- **2** = daily maximum exceeded\n- **3** = weekly maximum exceeded"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/dayID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID"
+                                ]
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "tags": [
+                    "User Own Recipes"
+                ],
+                "description": "This endpoint returns the constraints for creating an user-specific recipe for a certain meal."
+            },
+            "parameters": [],
+            "post": {
+                "summary": "Create an user-specific recipe for a meal",
+                "operationId": "post-userRecipe",
+                "responses": {
+                    "200": {
+                        "description": "Recipe created successfully  \nReturns the specified meal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "meal": {
+                                            "type": "object",
+                                            "properties": {
+                                                "mealID": {
+                                                    "$ref": "#/components/schemas/mealID"
+                                                },
+                                                "mealType": {
+                                                    "$ref": "#/components/schemas/mealType"
+                                                },
+                                                "recipeID": {
+                                                    "$ref": "#/components/schemas/recipeID"
+                                                },
+                                                "name": {
+                                                    "$ref": "#/components/schemas/recipeName"
+                                                },
+                                                "subcategoryName": {
+                                                    "$ref": "#/components/schemas/subcategoryName"
+                                                },
+                                                "done": {
+                                                    "$ref": "#/components/schemas/mealDone"
+                                                },
+                                                "custom": {
+                                                    "$ref": "#/components/schemas/customRecipe"
+                                                },
+                                                "ingredients": {
+                                                    "$ref": "#/components/schemas/ingredientQuantityArray"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "tags": [
+                    "User Own Recipes"
+                ],
+                "description": "This method allow your users to create their own healthy recipes and these recipes will only be available for them. This feature will allow your users to create their own recipes considering what they like and/or what they have in their fridge, following our guides.\n\nThe user may need to add any specific kind of ingredient, depending on the rest of the meals. You should call ```GET /userRecipe``` to check which ingredients are available and how many of them you need to include on the recipe to be healthy.\n\nThese recipes are defined by adding ingredients, following the guides that we add over the process. Consider that as a recipe is defined by the user for a specific meal of the day, that recipe has specific rules to complete to ensure that the day is healthy and well balanced. That will be a key part of this recipe creation process.\n\nYou can allow your users to save their recipes with the ```store``` parameter, and to be part of the offer available when we look for good fit alternatives in a meal.",
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "weekID": {
+                                        "$ref": "#/components/schemas/weekID"
+                                    },
+                                    "dayID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    },
+                                    "mealID": {
+                                        "$ref": "#/components/schemas/mealID"
+                                    },
+                                    "ingredients": {
+                                        "type": "array",
+                                        "description": "Defines the list of ingredients for the recipe. They should be available for this meal, you can check availble ingredients with ```GET /userRecipe```",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "ingredientID": {
+                                                    "$ref": "#/components/schemas/ingredientID"
+                                                }
+                                            },
+                                            "required": [
+                                                "ingredientID"
+                                            ]
+                                        }
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Defines the name for the recipe"
+                                    },
+                                    "store": {
+                                        "$ref": "#/components/schemas/storeRecipe"
+                                    }
+                                },
+                                "required": [
+                                    "weekID",
+                                    "dayID",
+                                    "mealID",
+                                    "ingredients",
+                                    "name",
+                                    "store"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/userRecipe/{recipeID}": {
+            "parameters": [{
+                "schema": {
+                    "type": "integer"
+                },
+                "name": "recipeID",
+                "in": "path",
+                "required": true,
+                "description": "Defines the recipe ID you want to remove"
+            }],
+            "delete": {
+                "summary": "Remove an user-specific recipe",
+                "operationId": "delete-userRecipe",
+                "responses": {
+                    "200": {
+                        "description": "Recipe removed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "tags": [
+                    "User Own Recipes"
+                ],
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "description": "This method allow your users to remove a recipe that they have created previously. Recipes created by your users are only available for themselves, so this will impact only their nutritional plans.\n\nOnce a recipe is removed, we remove it from previous selections, leaving blank those meals. Make sure you share this with your users so they are aware of the implications."
+            }
+        },
+        "/allergies": {
+            "get": {
+                "summary": "Get available allergies for user",
+                "operationId": "post-getAllergies",
+                "responses": {
+                    "200": {
+                        "description": "Returns the list of allergies available for a user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "constraints": {
+                                            "type": "array",
+                                            "description": "Defines the list of constraints that can be selected as standard allergy (type 1) or ingredient allergy (type 2)",
+                                            "items": {
+                                                "$ref": "#/components/schemas/constraintObjectWithName"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "tags": [
+                    "User Setup"
+                ],
+                "description": "Displays the list of allergies and ingredients that the user can indicate as allergy. We'll remove these from his diet"
+            },
+            "parameters": []
+        },
+        "/dislikes": {
+            "get": {
+                "summary": "Get available dislike ingredients for user",
+                "operationId": "post-getDislikes",
+                "responses": {
+                    "200": {
+                        "description": "Returns the list of ingredients dislikes available for a user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "constraints": {
+                                            "type": "array",
+                                            "description": "Defines the list of constraints that can be selected as ingredient dislike (type 3)",
+                                            "items": {
+                                                "$ref": "#/components/schemas/constraintObjectWithName"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ErrorResponse"
+                    }
+                },
+                "parameters": [{
+                        "$ref": "#/components/parameters/APIKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/UserToken"
+                    }
+                ],
+                "tags": [
+                    "User Setup"
+                ],
+                "description": "Displays the list of ingredients that the user can indicate as disliked. We'll remove these from his diet"
+            },
+            "parameters": []
+        }
+    },
+    "components": {
+        "schemas": {
+            "planType": {
+                "type": "integer",
+                "title": "planType",
+                "enum": [
+                    1,
+                    2
+                ],
+                "description": "Defines the type of plan for the user.\n\n- **1** = Automatic plan. The week is pre-filled with the best healthy options for each meal.  \n- **2** = Manual plan. The week is empty and each meal can be selected manually following our nutrition logic.",
+                "example": 2,
+                "x-internal": false
+            },
+            "weight": {
+                "type": "number",
+                "title": "weight",
+                "description": "Defines the weight of the user in kilograms. We use the weight to determine the right amount of each ingredient on every meal",
+                "example": 75,
+                "x-internal": false
+            },
+            "height": {
+                "type": "integer",
+                "title": "height",
+                "minimum": 80,
+                "maximum": 250,
+                "description": "Defines the height of the user in centimeters",
+                "example": 173,
+                "x-internal": false
+            },
+            "age": {
+                "type": "integer",
+                "title": "age",
+                "minimum": 4,
+                "maximum": 120,
+                "description": "Defines the age of the user in years",
+                "example": 25,
+                "x-internal": false
+            },
+            "gender": {
+                "type": "integer",
+                "title": "gender",
+                "description": "Defines the gender of the user\n\n- **1** = male\n- **2** = female",
+                "enum": [
+                    1,
+                    2
+                ],
+                "example": 1,
+                "x-internal": false
+            },
+            "modeID": {
+                "type": "integer",
+                "title": "modeID",
+                "description": "Defines the diet mode of the user. It determines the way we select the available recipes and the ingredients quantities optimization\n\n- **1** = healthy\n- **2** = lose weight\n- **3** = gain muscle",
+                "enum": [
+                    1,
+                    2,
+                    3
+                ],
+                "example": 3,
+                "x-internal": false
+            },
+            "dietID": {
+                "type": "integer",
+                "title": "dietID",
+                "description": "Defines the diet type of the user\n\n- **1** = without restrictions\n- **2** = vegan",
+                "enum": [
+                    1,
+                    2
+                ],
+                "example": 1,
+                "x-internal": false
+            },
+            "countryID": {
+                "type": "integer",
+                "title": "countryID",
+                "example": 236,
+                "description": "Defines the country ID associated to the user. We use the country to optimice the available recipes for the user. See the list of available countries with ```GET /setupData``` method",
+                "x-internal": false
+            },
+            "langID": {
+                "type": "integer",
+                "title": "langID",
+                "description": "Defines the language ID used to show the texts. See the list of available languages with ```GET /setupData``` method",
+                "example": 2,
+                "x-internal": false
+            },
+            "weekID": {
+                "type": "integer",
+                "title": "weekID",
+                "description": "Defines the week ID for a diet plan. Each user can have several weeks generated, each one indentified with this parameter",
+                "example": 0,
+                "minimum": 0,
+                "x-internal": false
+            },
+            "dayID": {
+                "type": "integer",
+                "title": "dayID",
+                "description": "Defines the day ID inside a week. Each plan represents one week and have 7 days associated to it",
+                "minimum": 1,
+                "maximum": 7,
+                "example": 4,
+                "x-internal": false
+            },
+            "mealID": {
+                "type": "integer",
+                "title": "mealID",
+                "description": "Defines the meal ID inside a day. Each day can have up to 5 meals associated to it",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 1,
+                "x-internal": false
+            },
+            "mealType": {
+                "type": "integer",
+                "title": "mealType",
+                "description": "Defines the type of a meal.\n\n- **1** = breakfast\n- **2** = noon snack\n- **3** = lunch\n- **4** = afternoon snack\n- **5** = dinner\n- **6** = supper",
+                "enum": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "example": 3
+            },
+            "mealsNumber": {
+                "type": "integer",
+                "title": "mealsNumber",
+                "description": "Defines the number of meals per day for a plan",
+                "enum": [
+                    3,
+                    4,
+                    5
+                ],
+                "example": 3
+            },
+            "mealsDistribution": {
+                "type": "integer",
+                "title": "mealsDistribution",
+                "description": "Defines the meals distribution for a day, i.e. the combination of the meal types. There are 3 distributions for every different number of meals. See the list of every available distribution with ```GET /setupData``` method",
+                "enum": [
+                    1,
+                    2,
+                    3
+                ],
+                "example": 3
+            },
+            "mealsDistributionsObject": {
+                "title": "mealsDistributionsObject",
+                "type": "object",
+                "description": "Defines the meals distribution for a given day ID",
+                "properties": {
+                    "dayID": {
+                        "$ref": "#/components/schemas/dayID"
+                    },
+                    "mealsNumber": {
+                        "$ref": "#/components/schemas/mealsNumber"
+                    },
+                    "mealsDistribution": {
+                        "$ref": "#/components/schemas/mealsDistribution"
+                    }
+                }
+            },
+            "mealsDistributionsArray": {
+                "title": "mealsDistributionsArray",
+                "type": "array",
+                "description": "Defines a list of every meals distribution for several days (up to seven)",
+                "items": {
+                    "$ref": "#/components/schemas/mealsDistributionsObject"
+                }
+            },
+            "ingredientID": {
+                "type": "integer",
+                "title": "ingredientID",
+                "description": "Defines the ingredient ID. See the list of every available ingredient with ```GET /setupData``` method ",
+                "example": 8
+            },
+            "ingredientName": {
+                "type": "string",
+                "title": "ingredientName",
+                "description": "Name of the ingredient",
+                "example": "Tomato"
+            },
+            "ingredientGroupName": {
+                "type": "string",
+                "title": "ingredientGroupName",
+                "description": "Defines the name of the ingredient group. See the list of every available ingredient group with ```GET /setupData``` method",
+                "example": "Vegetables"
+            },
+            "ingredientGrams": {
+                "type": "integer",
+                "title": "ingredientGrams",
+                "description": "Defines the quantity of ingredient in grams",
+                "example": 60
+            },
+            "ingredientQuantity": {
+                "type": "integer",
+                "title": "ingredientQuantity",
+                "description": "Defines the quantity of ingredient in the most appropiate measurement. If ```null```, it means that the quantity is free of choice for the user, since the nutritional contribution of this ingredient is not very relevant",
+                "example": 2
+            },
+            "ingredientMeasurement": {
+                "type": "string",
+                "title": "ingredientMeasurement",
+                "description": "Defines the text for the measurement",
+                "example": "units"
+            },
+            "shoppingListRangeObject": {
+                "title": "shoppingListRangeObject",
+                "type": "object",
+                "properties": {
+                    "weekID": {
+                        "$ref": "#/components/schemas/weekID"
+                    },
+                    "dayID": {
+                        "$ref": "#/components/schemas/dayID"
+                    },
+                    "mealID": {
+                        "$ref": "#/components/schemas/mealID"
+                    }
+                },
+                "required": [
+                    "weekID"
+                ],
+                "description": ""
+            },
+            "shoppingListRangeArray": {
+                "title": "shoppingListRangeArray",
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/shoppingListRangeObject"
+                },
+                "description": "Defines a list of ranges. The shopping list will return the list of ingredients within the specified ranges"
+            },
+            "ingredientQuantityObject": {
+                "title": "ingredientQuantityObject",
+                "type": "object",
+                "properties": {
+                    "ingredientID": {
+                        "$ref": "#/components/schemas/ingredientID"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/ingredientName"
+                    },
+                    "grams": {
+                        "$ref": "#/components/schemas/ingredientGrams"
+                    },
+                    "quantity": {
+                        "$ref": "#/components/schemas/ingredientQuantity"
+                    },
+                    "measurement": {
+                        "$ref": "#/components/schemas/ingredientMeasurement"
+                    }
+                },
+                "description": "Defines the required quantity for an ingredient. If you defined a fixed quantity for your own recipe, ```quantity``` and ```measurement``` fields won't appear"
+            },
+            "ingredientShoppingListObject": {
+                "title": "ingredientShoppingListObject",
+                "type": "object",
+                "description": "Defines the shopping list quantity for an ingredient for the specified ranges",
+                "properties": {
+                    "ingredientID": {
+                        "$ref": "#/components/schemas/ingredientID"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/ingredientName"
+                    },
+                    "quantity": {
+                        "$ref": "#/components/schemas/ingredientQuantity"
+                    },
+                    "measurement": {
+                        "$ref": "#/components/schemas/ingredientMeasurement"
+                    }
+                }
+            },
+            "ingredientQuantityArray": {
+                "title": "ingredientQuantityArray",
+                "type": "array",
+                "description": "Defines a list of ingredients with associated quantities",
+                "items": {
+                    "$ref": "#/components/schemas/ingredientQuantityObject"
+                }
+            },
+            "constraintID": {
+                "type": "integer",
+                "title": "constraintID",
+                "description": "Defines the constraint ID for a user. This could be an allergy or ingredient you want to exclude from the user's plan",
+                "example": 1
+            },
+            "constraintType": {
+                "type": "integer",
+                "title": "constraintType",
+                "description": "Defines the type of the constraint\n\n- **1** = standard allergy (see list of every available allergy with ```GET /setupData``` method)\n- **2** = ingredient allergy\n- **3** = ingredient dislike",
+                "enum": [
+                    1,
+                    2,
+                    3
+                ],
+                "example": 1
+            },
+            "constraintName": {
+                "type": "string",
+                "title": "constraintName",
+                "description": "Defines the name of the constraint",
+                "example": "Gluten"
+            },
+            "constraintObjectWithName": {
+                "title": "constraintObjectWithName",
+                "type": "object",
+                "properties": {
+                    "constraintID": {
+                        "$ref": "#/components/schemas/constraintID"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/constraintType"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/constraintName"
+                    }
+                }
+            },
+            "constraintObjectWithoutName": {
+                "title": "constraintObjectWithName",
+                "type": "object",
+                "properties": {
+                    "constraintID": {
+                        "$ref": "#/components/schemas/constraintID"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/constraintType"
+                    }
+                }
+            },
+            "recipeID": {
+                "type": "integer",
+                "title": "recipeID",
+                "description": "Defines the recipe ID. See the list of every available recipe with ```GET /recipes``` method",
+                "example": 449
+            },
+            "recipeName": {
+                "type": "string",
+                "title": "recipeName",
+                "example": "Macaroni with meat balls and tomato sauce",
+                "description": "Defines the name of the recipe"
+            },
+            "storeRecipe": {
+                "title": "storeRecipe",
+                "type": "boolean",
+                "description": "Defines if the recipe should be stored so it can be re-selected for other meals (if the recipe meets the requirements for that meal)"
+            },
+            "subcategoryName": {
+                "type": "string",
+                "title": "subcategoryName",
+                "description": "Defines the name of the recipe's subcategory. See the list of every available subcategory with ```GET /setupData``` method",
+                "example": "Pasta"
+            },
+            "recipeLevel": {
+                "type": "integer",
+                "title": "recipeLevel",
+                "description": "Defines the difficulty for cooking the recipe, from 1 to 3 (the highest, the harder)",
+                "enum": [
+                    1,
+                    2,
+                    3
+                ],
+                "example": 2
+            },
+            "recipeTime": {
+                "type": "integer",
+                "title": "recipeTime",
+                "description": "Defines the approximate time for cooking the recipe, in minutes",
+                "example": 45
+            },
+            "customRecipe": {
+                "title": "customRecipe",
+                "type": "boolean",
+                "description": "Defines if the recipe has been created by the user (using ```POST /userRecipe```)"
+            },
+            "mealDone": {
+                "type": "boolean",
+                "title": "mealDone",
+                "description": "Defines if a meal has been done by the user. We use this information to better optimice the plan and quantities"
+            },
+            "weekObject": {
+                "title": "weekObject",
+                "type": "object",
+                "description": "Defines a plan for a week",
+                "properties": {
+                    "weekID": {
+                        "$ref": "#/components/schemas/weekID"
+                    },
+                    "days": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/dayObject"
+                        }
+                    }
+                }
+            },
+            "dayObject": {
+                "title": "dayObject",
+                "type": "object",
+                "properties": {
+                    "dayID": {
+                        "$ref": "#/components/schemas/dayID"
+                    },
+                    "mealsNumber": {
+                        "$ref": "#/components/schemas/mealsNumber"
+                    },
+                    "mealsDistribution": {
+                        "$ref": "#/components/schemas/mealsDistribution"
+                    },
+                    "meals": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/mealObject"
+                        }
+                    }
+                }
+            },
+            "mealObject": {
+                "title": "mealObject",
+                "type": "object",
+                "description": "Defines a meal. \n\nIf recipe ID it's equal to -1, it means that there are no recipe associated to that meal. For example, all meals will be blank by default using the manual plan type, or if you use ```PUT /skipMeal``` on a meal",
+                "properties": {
+                    "mealID": {
+                        "$ref": "#/components/schemas/mealID"
+                    },
+                    "mealType": {
+                        "$ref": "#/components/schemas/mealType"
+                    },
+                    "recipeID": {
+                        "$ref": "#/components/schemas/recipeID"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/recipeName"
+                    },
+                    "subcategoryName": {
+                        "$ref": "#/components/schemas/subcategoryName"
+                    },
+                    "level": {
+                        "$ref": "#/components/schemas/recipeLevel"
+                    },
+                    "time": {
+                        "$ref": "#/components/schemas/recipeTime"
+                    },
+                    "done": {
+                        "$ref": "#/components/schemas/mealDone"
+                    },
+                    "custom": {
+                        "$ref": "#/components/schemas/customRecipe"
+                    },
+                    "ingredients": {
+                        "$ref": "#/components/schemas/ingredientQuantityArray"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "ErrorResponse": {
+                "description": "Returns the error associated to the request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "example": "Description of the error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "APIKey": {
+                "name": "api_key",
+                "in": "header",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Your API Key"
+            },
+            "UserToken": {
+                "name": "user_token",
+                "in": "header",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "User token"
+            }
+        },
+        "securitySchemes": {}
+    }
+}
